@@ -196,9 +196,49 @@
       d.write("<div id='zsiqwidget'></div>");
 
       $(document).ready(function () {
-        setTimeout(function () {
-          $zoho.salesiq.floatbutton.coin.hidetooltip();
-        }, 5000);
+        var chatLauncher = document.querySelector(".chat");
+        var zoho = document.querySelector(".chat-app--zoho");
+
+        var showChat = false;
+
+        $zoho.salesiq.ready = function () {
+          $zoho.salesiq.floatbutton.visible("hide");
+          chatLauncher.style.opacity = 1;
+        };
+
+        var openChat = function () {
+          chatLauncher.classList.remove("chat--hide");
+          chatLauncher.classList.add("chat--show");
+        };
+
+        var closeChat = function () {
+          chatLauncher.classList.remove("chat--show");
+          chatLauncher.classList.add("chat--hide");
+        };
+
+        chatLauncher.addEventListener("click", function () {
+          showChat = !showChat;
+          if (!showChat) {
+            closeChat();
+          } else {
+            openChat();
+          }
+        });
+
+        chatLauncher.addEventListener("mouseover", () => {
+          showChat = true;
+          openChat();
+        });
+
+        chatLauncher.addEventListener("mouseleave", () => {
+          showChat = false;
+          closeChat();
+        });
+
+        zoho.addEventListener("click", () => {
+          var zohoApp = document.querySelector(".zsiq_floatmain");
+          zohoApp.click();
+        });
       });
     </script>
     <script type="text/javascript" defer>
@@ -228,5 +268,30 @@
         $zoho.salesiq.visitor.contactnumber("");
       };
     </script>
+
+    <div class="chat">
+      <a
+        href="https://t.me/Forex4youOfficial_bot"
+        target="_blank"
+        class="chat-app chat-app--animate chat-app--telegram"
+      ></a>
+      <a
+        href="https://m.me/101741043204980"
+        target="_blank"
+        class="chat-app chat-app--animate chat-app--messenger"
+      ></a>
+      <a
+        href="https://wa.me/+443300271824"
+        target="_blank"
+        class="chat-app chat-app--animate chat-app--whatsapp"
+      ></a>
+      <a
+        href="https://account.forex4you.com/en/site-call"
+        target="_blank"
+        class="chat-app chat-app--animate chat-app--support"
+      ></a>
+      <div class="chat-app chat-app--animate chat-app--zoho"></div>
+      <div class="chat-launcher chat-app--chat"></div>
+    </div>
   </body>
 </html>
